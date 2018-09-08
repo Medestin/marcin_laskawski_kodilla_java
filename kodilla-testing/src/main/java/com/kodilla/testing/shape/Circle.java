@@ -10,10 +10,6 @@ public class Circle implements Shape {
         this.radius = radius;
     }
 
-    public double getRadius() {
-        return radius;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

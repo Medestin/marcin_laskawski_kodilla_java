@@ -3,14 +3,18 @@ package com.kodilla.testing.shape;
 import org.junit.*;
 
 public class ShapeCollectorTestSuite {
+
+    private static int testCounter = 0;
+
     @Before
     public void before() {
-        System.out.println("Test Case: begin");
+        testCounter++;
+        System.out.println("Test Case: begin test no. " + testCounter);
     }
 
     @After
     public void after() {
-        System.out.println("Test Case: end");
+        System.out.println("Test Case: finished test no. " + testCounter);
     }
 
     @BeforeClass
@@ -36,6 +40,7 @@ public class ShapeCollectorTestSuite {
         ShapeCollector shapeCollector = new ShapeCollector();
         shapeCollector.addFigure(testSquare);
         Assert.assertTrue(shapeCollector.removeFigure(testSquare));
+        Assert.assertEquals(0, shapeCollector.size());
     }
 
     @Test
@@ -49,9 +54,9 @@ public class ShapeCollectorTestSuite {
 
     @Test
     public void testShowFigures() {
-        Square testSquare = new Square(1);
         ShapeCollector shapeCollector = new ShapeCollector();
-        shapeCollector.addFigure(testSquare);
-        Assert.assertTrue(shapeCollector.showFigures().contains("square"));
+        shapeCollector.addFigure(new Square(1));
+        shapeCollector.addFigure(new Triangle(1, 2));
+        Assert.assertTrue(shapeCollector.showFigures().contains("square, triangle"));
     }
 }

@@ -23,10 +23,6 @@ public class Square implements Shape {
         return Objects.hash(sideLength);
     }
 
-    public double getSideLength() {
-        return sideLength;
-    }
-
     public String getShapeName() {
         return "square";
     }
@@ -34,5 +30,4 @@ public class Square implements Shape {
     public double getField() {
         return sideLength * sideLength;
     }
-
 }

@@ -2,10 +2,11 @@ package com.kodilla.testing.shape;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class ShapeCollector {
 
-    private List<Shape> shapeList = new ArrayList<>();
+    private final List<Shape> shapeList = new ArrayList<>();
 
     public int size(){
         return shapeList.size();
@@ -16,25 +17,27 @@ public class ShapeCollector {
     }
 
     public boolean removeFigure(Shape shape){
-        boolean result = false;
         if(shapeList.contains(shape)){
             shapeList.remove(shape);
-            result = true;
+            return true;
         }
-        return result;
+        return false;
     }
 
-    public Shape getFigure(int shapeNumber){
-        Shape desiredShape = null;
+    public Shape getFigure(int shapeNumber) {
+
         if(shapeNumber >= 0 && shapeNumber <= this.size()){
-            desiredShape = shapeList.get(shapeNumber);
+            return shapeList.get(shapeNumber);
+        }else{
+            throw new NoSuchElementException();
         }
-        return desiredShape;
     }
 
     public String showFigures(){
-        StringBuilder listOfShapes = new StringBuilder();
-        shapeList.forEach(e -> listOfShapes.append(e.getShapeName()));
-        return listOfShapes.toString();
+
+        List<String> figuresList = new ArrayList<>();
+        shapeList.forEach(e -> figuresList.add(e.getShapeName()));
+        return String.join(", ", figuresList);
+
     }
 }

@@ -12,14 +12,6 @@ public class Triangle implements Shape {
         this.heightLength = heightLength;
     }
 
-    public double getBaseLength() {
-        return baseLength;
-    }
-
-    public double getHeightLength() {
-        return heightLength;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -41,6 +33,4 @@ public class Triangle implements Shape {
     public double getField() {
         return (baseLength * heightLength) / 2;
     }
-
-
 }
