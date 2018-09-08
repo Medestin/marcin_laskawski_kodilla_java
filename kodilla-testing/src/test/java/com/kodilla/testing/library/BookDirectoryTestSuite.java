@@ -103,7 +103,6 @@ public class BookDirectoryTestSuite {
         List<Book> theListOfBooks0 = bookLibrary.listBooksInHandsOf(libraryUser);
 
         assertEquals(0, theListOfBooks0.size());
-        verify(libraryDatabaseMock, never()).listBooksInHandsOf(libraryUser);
     }
 
     @Test
@@ -118,7 +117,7 @@ public class BookDirectoryTestSuite {
         List<Book> theListOfBooks1 = bookLibrary.listBooksInHandsOf(libraryUser);
 
         assertEquals(1, theListOfBooks1.size());
-        verify(libraryDatabaseMock, atLeast(1)).listBooksInHandsOf(libraryUser);
+        verify(libraryDatabaseMock, atMost(1)).listBooksInHandsOf(libraryUser);
     }
 
     @Test
