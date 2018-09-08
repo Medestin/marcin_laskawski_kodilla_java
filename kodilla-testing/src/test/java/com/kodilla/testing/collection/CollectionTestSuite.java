@@ -7,36 +7,35 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class CollectionTestSuite {
 
     @Before
-    public void before(){
+    public void before() {
         System.out.println("Test Case: OddNumbersExterminator begin");
     }
+
     @After
-    public void after(){
+    public void after() {
         System.out.println("Test Case: OddNumbersExterminator end");
     }
 
     @Test
-    public void testDiscardOddNumbersEmptyList(){
+    public void testDiscardOddNumbersEmptyList() {
         OddNumbersExterminator oddNumbersExterminator = new OddNumbersExterminator();
         List<Integer> emptyArrayList = new ArrayList<>();
         List<Integer> filteredArrayList = new ArrayList<>(oddNumbersExterminator.discardUnevenNumbers(emptyArrayList));
-        filteredArrayList.forEach(e -> Assert.assertEquals(0, e % 2));
+        Assert.assertTrue(filteredArrayList.isEmpty());
     }
 
     @Test
-    public void testDiscardOddNumbersNormalList(){
+    public void testDiscardOddNumbersNormalList() {
         OddNumbersExterminator oddNumbersExterminator = new OddNumbersExterminator();
-        List<Integer> normalArrayList = new ArrayList<>();
-        for(int i = 1; i < 50001; i++){
-            normalArrayList.add(i);
-        }
-        List<Integer> filteredArrayList = new ArrayList<>(oddNumbersExterminator.discardUnevenNumbers(normalArrayList));
 
-        filteredArrayList.forEach(e -> Assert.assertEquals(0, e % 2));
+        List<Integer> integerList = IntStream.range(0, 500).boxed().collect(Collectors.toList());
+        oddNumbersExterminator.discardUnevenNumbers(integerList).forEach(e -> Assert.assertEquals(0, e % 2));
     }
 
 }
