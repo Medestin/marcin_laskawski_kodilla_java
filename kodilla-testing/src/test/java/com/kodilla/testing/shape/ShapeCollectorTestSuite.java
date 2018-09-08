@@ -33,12 +33,9 @@ public class ShapeCollectorTestSuite {
     @Test
     public void testRemoveFigure() {
         Square testSquare = new Square(1);
-        Triangle testTriangle = new Triangle(2, 4);
         ShapeCollector shapeCollector = new ShapeCollector();
         shapeCollector.addFigure(testSquare);
-        shapeCollector.addFigure(testTriangle);
-        shapeCollector.removeFigure(testSquare);
-        Assert.assertEquals(1, shapeCollector.size());
+        Assert.assertTrue(shapeCollector.removeFigure(testSquare));
     }
 
     @Test

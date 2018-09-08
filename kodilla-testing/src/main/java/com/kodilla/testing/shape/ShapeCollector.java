@@ -12,18 +12,29 @@ public class ShapeCollector {
     }
 
     public void addFigure(Shape shape){
-
+        shapeList.add(shape);
     }
 
-    public void removeFigure(Shape shape){
-
+    public boolean removeFigure(Shape shape){
+        boolean result = false;
+        if(shapeList.contains(shape)){
+            shapeList.remove(shape);
+            result = true;
+        }
+        return result;
     }
 
-    public Shape getFigure(int n){
-        return null;
+    public Shape getFigure(int shapeNumber){
+        Shape desiredShape = null;
+        if(shapeNumber >= 0 && shapeNumber <= this.size()){
+            desiredShape = shapeList.get(shapeNumber);
+        }
+        return desiredShape;
     }
 
     public String showFigures(){
-        return "dummy String";
+        StringBuilder listOfShapes = new StringBuilder();
+        shapeList.forEach(e -> listOfShapes.append(e.getShapeName()));
+        return listOfShapes.toString();
     }
 }
