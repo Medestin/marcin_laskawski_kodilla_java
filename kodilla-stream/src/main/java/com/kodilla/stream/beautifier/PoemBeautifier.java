@@ -1,7 +1,7 @@
 package com.kodilla.stream.beautifier;
 
 public class PoemBeautifier {
-    public static void beautify(String beautifyThis, PoemDecorator poemDecorator){
-        System.out.println(poemDecorator.decorate(beautifyThis));
+    public static String beautify(String beautifyThis, Decorator decorator){
+        return decorator.decorate(beautifyThis);
     }
 }
