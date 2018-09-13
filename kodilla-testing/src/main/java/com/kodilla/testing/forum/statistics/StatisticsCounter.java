@@ -1,13 +1,46 @@
 package com.kodilla.testing.forum.statistics;
 
-public class StatisticsCounter {
+public final class StatisticsCounter {
 
-    private int numberOfUsers;
-    private int numberOfPosts;
-    private int numberOfComments;
-    private double avgPostsPerUser;
-    private double avgCommentsPerUser;
-    private double avgCommentsPerPost;
+    private final int numberOfUsers;
+    private final int numberOfPosts;
+    private final int numberOfComments;
+    private final double avgPostsPerUser;
+    private final double avgCommentsPerUser;
+    private final double avgCommentsPerPost;
+
+    public StatisticsCounter(Statistics statistics) {
+        this.numberOfUsers = statistics.usersNames().size();
+        this.numberOfPosts = statistics.postsCount();
+        this.numberOfComments = statistics.commentsCount();
+
+        if (this.numberOfUsers == 0) {
+            this.avgPostsPerUser = 0.0;
+            this.avgCommentsPerUser = 0.0;
+        } else {
+            this.avgPostsPerUser = (double) this.numberOfPosts / (double) this.numberOfUsers;
+            this.avgCommentsPerUser = (double) this.numberOfComments / (double) this.numberOfUsers;
+        }
+
+        if (this.numberOfPosts == 0) {
+            this.avgCommentsPerPost = 0.0;
+        } else {
+            this.avgCommentsPerPost = (double) this.numberOfComments / (double) this.numberOfPosts;
+        }
+
+    }
+
+    public int getNumberOfUsers() {
+        return numberOfUsers;
+    }
+
+    public int getNumberOfPosts() {
+        return numberOfPosts;
+    }
+
+    public int getNumberOfComments() {
+        return numberOfComments;
+    }
 
     public double getAvgPostsPerUser() {
         return avgPostsPerUser;
@@ -19,42 +52,6 @@ public class StatisticsCounter {
 
     public double getAvgCommentsPerPost() {
         return avgCommentsPerPost;
-    }
-
-    public double countAvgPostsPerUser(){
-        if(numberOfUsers == 0){
-            return 0;
-        } else return (double) numberOfPosts / (double) numberOfUsers;
-    }
-
-    public double countAvgCommentsPerUser(){
-        if(numberOfUsers == 0){
-            return 0;
-        } else return (double) numberOfComments / (double) numberOfUsers;
-    }
-
-    public double countAvgCommentsPerPost(){
-        if(numberOfPosts == 0){
-            return 0;
-        } else return (double) numberOfComments / (double) numberOfPosts;
-    }
-
-    public void calculateAdvStatistics(Statistics statistics){
-        numberOfUsers = statistics.usersNames().size();
-        numberOfPosts = statistics.postsCount();
-        numberOfComments = statistics.commentsCount();
-        avgPostsPerUser = countAvgPostsPerUser();
-        avgCommentsPerUser = countAvgCommentsPerUser();
-        avgCommentsPerPost = countAvgCommentsPerPost();
-    }
-
-    public void showStatistics(){
-        System.out.println("Users counted: " + numberOfUsers);
-        System.out.println("Posts counted: " + numberOfPosts);
-        System.out.println("Comments counted: " + numberOfComments);
-        System.out.println("Average no. of posts per user: " + avgPostsPerUser);
-        System.out.println("Average no. of comments per user: " + avgCommentsPerUser);
-        System.out.println("Average no. of comments per post: " + avgCommentsPerPost);
     }
 
 }
