@@ -48,4 +48,9 @@ public final class ForumUser {
                 ", postCount=" + postCount +
                 '}';
     }
+
+    public boolean isAtLeast20YO(){
+        return LocalDate.now().getYear() - this.dateOfBirth.getYear() >= 20;
+    }
+
 }

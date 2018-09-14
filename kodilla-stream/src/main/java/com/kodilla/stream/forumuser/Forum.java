@@ -16,7 +16,7 @@ public final class Forum {
         userList.add(new ForumUser("Myrtana", 5, 'F', LocalDate.of(2000, 1, 22), 3000));
         userList.add(new ForumUser("JakasLaska", 6, 'F', LocalDate.of(1993, 7, 1), 18));
         userList.add(new ForumUser("JakisKoles", 7, 'M', LocalDate.of(1990, 5, 18), 15));
-        userList.add(new ForumUser("Z3000", 8, 'M', LocalDate.of(1939, 4, 23), 0));
+        userList.add(new ForumUser("Z3000", 8, 'M', LocalDate.of(1939, 4, 23), 1));
         userList.add(new ForumUser("Kenny", 9, 'M', LocalDate.of(1945, 12, 20), 189));
         userList.add(new ForumUser("MałgorzataMistrza", 10, 'F', LocalDate.of(1977, 9, 3), 456));
     }
