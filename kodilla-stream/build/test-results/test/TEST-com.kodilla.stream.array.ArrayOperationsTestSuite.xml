@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kodilla.stream.array.ArrayOperationsTestSuite" tests="3" skipped="0" failures="0" errors="0" timestamp="2018-09-15T00:37:34" hostname="DESKTOP-IL9LPOJ" time="0.011">
+  <properties/>
+  <testcase name="testGetAverage" classname="com.kodilla.stream.array.ArrayOperationsTestSuite" time="0.01"/>
+  <testcase name="testGetAverageOfTwos" classname="com.kodilla.stream.array.ArrayOperationsTestSuite" time="0.0"/>
+  <testcase name="testGetAverageOfEmpty" classname="com.kodilla.stream.array.ArrayOperationsTestSuite" time="0.0"/>
+  <system-out><![CDATA[12345622222222220000000000]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
