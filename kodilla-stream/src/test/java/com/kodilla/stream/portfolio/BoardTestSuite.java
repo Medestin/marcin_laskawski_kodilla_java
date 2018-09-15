@@ -3,6 +3,7 @@ package com.kodilla.stream.portfolio;
 import org.junit.Assert;
 import org.junit.Test;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -149,13 +150,18 @@ public class BoardTestSuite {
                 .filter(inProgressTasks::contains)
                 .flatMap(task -> task.getTasks().stream())
                 .map(Task::getCreated)
-                .mapToDouble((n) -> LocalDate.now().compareTo(n))
+                .mapToDouble((n) -> Period.between(n, LocalDate.now()).getDays())
                 .average().orElse(0.0);
 
-        double averageCountedByHand = (double) (LocalDate.now().compareTo(LocalDate.now()) +
-                                            LocalDate.now().compareTo(LocalDate.now().minusDays(10)) +
-                                                LocalDate.now().compareTo(LocalDate.now().minusDays(20)))/3;
+//        double averageCountedByHand = (double) (LocalDate.now().compareTo(LocalDate.now()) +
+//                                                    LocalDate.now().compareTo(LocalDate.now().minusDays(10)) +
+//                                                        LocalDate.now().compareTo(LocalDate.now().minusDays(20)))/3;
 
+        double averageCountedByHand = (double) (
+                Period.between(LocalDate.now(), LocalDate.now()).getDays() +
+                        Period.between(LocalDate.now().minusDays(10), LocalDate.now()).getDays() +
+                            Period.between(LocalDate.now().minusDays(20), LocalDate.now()).getDays()
+                )/3;
 
         Assert.assertEquals(averageCountedByHand, averageDays, 0.0);
     }
