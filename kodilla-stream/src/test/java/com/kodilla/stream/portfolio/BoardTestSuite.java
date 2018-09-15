@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 
@@ -138,7 +140,24 @@ public class BoardTestSuite {
 
     @Test
     public void testAddTaskListAverageWorkingOnTask(){
-        Assert.fail();
+        Board project = prepareTestData();
+
+        List<TaskList> inProgressTasks = new ArrayList<>();
+        inProgressTasks.add(new TaskList("In progress"));
+
+        double averageDays = project.getTaskLists().stream()
+                .filter(inProgressTasks::contains)
+                .flatMap(task -> task.getTasks().stream())
+                .map(Task::getCreated)
+                .mapToDouble((n) -> LocalDate.now().compareTo(n))
+                .average().orElse(0.0);
+
+        double averageCountedByHand = (double) (LocalDate.now().compareTo(LocalDate.now()) +
+                                            LocalDate.now().compareTo(LocalDate.now().minusDays(10)) +
+                                                LocalDate.now().compareTo(LocalDate.now().minusDays(20)))/3;
+
+
+        Assert.assertEquals(averageCountedByHand, averageDays, 0.0);
     }
 
 
