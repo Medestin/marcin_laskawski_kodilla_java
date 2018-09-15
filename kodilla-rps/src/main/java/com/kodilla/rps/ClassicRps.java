@@ -70,7 +70,7 @@ public final class ClassicRps {
     private void newGame(){
         System.out.println("Are you sure? (y/n)");
         if(rpsScanner.next().equals("y")){
-            toString();
+            System.out.println(toString());
             System.out.println("Resetting...");
             playerScore = 0;
             computerScore = 0;
