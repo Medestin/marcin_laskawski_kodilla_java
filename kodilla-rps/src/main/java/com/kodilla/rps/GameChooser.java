@@ -22,10 +22,13 @@ public class GameChooser {
 
         if (gameMode == 1) {
             ClassicRps classicRps = new ClassicRps();
+            classicRps.newRound();
         } else if (gameMode == 2) {
             CheatingRps cheatingRps = new CheatingRps();
+            cheatingRps.newRound();
         } else if (gameMode == 3) {
             Rpsls rpsls = new Rpsls();
+            rpsls.newRound();
         } else {
             System.out.println("Wrong input! Try again!");
             chooseAGame();
