@@ -3,7 +3,7 @@ package com.kodilla.rps;
 public class Rpsls extends ClassicRps {
 
     @Override
-    protected void message() {
+    protected void printGameCheatSheet() {
         System.out.println("1 - Rock || 2 - Paper || 3 - Scissors\n4 - Lizard || 5 - Spock");
         System.out.println("X - ends the game || N - Play a new game");
     }
@@ -22,7 +22,7 @@ public class Rpsls extends ClassicRps {
     @Override
     protected int battle(Move playerMove) {
         Move computerMove = Move.returnAMove((int) (Math.random() * 5) + 1);
-        printBattleInfo(playerMove, computerMove);
+        System.out.println(playerMove + " VS " + computerMove);
 
         if(playerMove == computerMove){
             return 0;

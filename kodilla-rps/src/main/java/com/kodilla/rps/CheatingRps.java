@@ -7,15 +7,15 @@ public class CheatingRps extends ClassicRps {
     private Move[] SCISSORS_REPLY = new Move[]{Move.ROCK, Move.ROCK, Move.PAPER, Move.SCISSORS};
 
     private Move pickComputerMove(Move playerMove) {
-        int diceRoll = (int) (Math.random() * 4);
+        int rollAMove = (int) (Math.random() * 4);
 
         switch (playerMove) {
             case ROCK:
-                return ROCK_REPLY[diceRoll];
+                return ROCK_REPLY[rollAMove];
             case PAPER:
-                return PAPER_REPLY[diceRoll];
+                return PAPER_REPLY[rollAMove];
             case SCISSORS:
-                return SCISSORS_REPLY[diceRoll];
+                return SCISSORS_REPLY[rollAMove];
         }
         throw new IllegalArgumentException("Unknown player move");
     }
@@ -23,7 +23,7 @@ public class CheatingRps extends ClassicRps {
     @Override
     protected int battle(Move playerMove) {
         Move computerMove = pickComputerMove(playerMove);
-        printBattleInfo(playerMove, computerMove);
+        System.out.println(playerMove + " VS " + computerMove);
 
         if (playerMove == computerMove) {
             return 0;

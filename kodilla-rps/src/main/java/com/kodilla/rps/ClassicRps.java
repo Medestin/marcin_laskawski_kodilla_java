@@ -11,13 +11,14 @@ public class ClassicRps {
     private int roundCounter = 0;
 
     protected void newRound() {
-        message();
+        printGameCheatSheet();
 
         String move = rpsScanner.next();
         move = move.toUpperCase();
 
         if (!inputValidator(move)) {
             newRound();
+            return;
         }
 
         switch (move) {
@@ -28,32 +29,37 @@ public class ClassicRps {
                 newGame();
                 break;
             default:
-                Move playerMove = Move.returnAMove(Integer.parseInt(move));
-                int result = battle(playerMove);
+                int moveNumber = Integer.parseInt(move);
+                Move playerMove = Move.returnAMove(moveNumber);
+                int battleResult = battle(playerMove);
+                adjustGameScore(battleResult);
 
-                switch (result){
-                    case 0:
-                        System.out.println("It'a tie!");
-                        roundCounter++;
-                        break;
-                    case 1:
-                        System.out.println("You won!");
-                        playerScore++;
-                        roundCounter++;
-                        break;
-                    case -1:
-                        System.out.println("You lost!");
-                        computerScore++;
-                        roundCounter++;
-                        break;
-                }
                 System.out.println("Round " + roundCounter + ": " + toString());
                 newRound();
                 break;
         }
     }
 
-    protected void message() {
+    private void adjustGameScore(int battleResult){
+        switch (battleResult){
+            case 0:
+                System.out.println("It'a tie!");
+                roundCounter++;
+                break;
+            case 1:
+                System.out.println("You won!");
+                playerScore++;
+                roundCounter++;
+                break;
+            case -1:
+                System.out.println("You lost!");
+                computerScore++;
+                roundCounter++;
+                break;
+        }
+    }
+
+    protected void printGameCheatSheet() {
         System.out.println("1 - Rock || 2 - Paper || 3 - Scissors");
         System.out.println("X - ends the game || N - Play a new game");
     }
@@ -69,17 +75,13 @@ public class ClassicRps {
 
     protected int battle(Move playerMove) {
         Move computerMove = Move.returnAMove((int) (Math.random() * 3) + 1);
-        printBattleInfo(playerMove, computerMove);
+        System.out.println(playerMove + " VS " + computerMove);
 
         if(playerMove == computerMove){
             return 0;
         } else {
             return Move.beats(playerMove, computerMove) ? 1 : -1;
         }
-    }
-
-    protected void printBattleInfo(Move playerMove, Move computerMove) {
-        System.out.println(playerMove + " VS " + computerMove);
     }
 
     private void newGame() {
