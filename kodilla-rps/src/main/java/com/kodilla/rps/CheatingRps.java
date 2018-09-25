@@ -2,47 +2,33 @@ package com.kodilla.rps;
 
 public class CheatingRps extends ClassicRps {
 
-    public CheatingRps(){
+    private Move[] ROCK_REPLY = new Move[]{Move.ROCK, Move.PAPER, Move.PAPER, Move.SCISSORS};
+    private Move[] PAPER_REPLY = new Move[]{Move.ROCK, Move.PAPER, Move.SCISSORS, Move.SCISSORS};
+    private Move[] SCISSORS_REPLY = new Move[]{Move.ROCK, Move.ROCK, Move.PAPER, Move.SCISSORS};
 
+    private Move pickComputerMove(Move playerMove) {
+        int diceRoll = (int) (Math.random() * 4);
+
+        switch (playerMove) {
+            case ROCK:
+                return ROCK_REPLY[diceRoll];
+            case PAPER:
+                return PAPER_REPLY[diceRoll];
+            case SCISSORS:
+                return SCISSORS_REPLY[diceRoll];
+        }
+        throw new IllegalArgumentException("Unknown player move");
     }
 
     @Override
-    protected void message(){
-        System.out.println("1 - Rock || 2 - Paper || 3 - Scissors");
-        System.out.println("X - ends the game || N - Play a new game");
+    protected int battle(Move playerMove) {
+        Move computerMove = pickComputerMove(playerMove);
+        printBattleInfo(playerMove, computerMove);
 
-    }
-
-    @Override
-    protected int battle(Move playerMove){
-        int diceRoll = (int) (Math.random()*100 + 1);
-
-        if(diceRoll <= 25){
-
-            switch(playerMove){
-                case ROCK: printBattleInfo(Move.ROCK, Move.SCISSORS); break;
-                case PAPER: printBattleInfo(Move.PAPER, Move.ROCK); break;
-                case SCISSORS: printBattleInfo(Move.SCISSORS, Move.PAPER); break;
-            }
-
-            return 1;
-        } else if(diceRoll <= 50){
-
-            switch(playerMove){
-                case ROCK: printBattleInfo(Move.ROCK, Move.ROCK); break;
-                case PAPER: printBattleInfo(Move.PAPER, Move.PAPER); break;
-                case SCISSORS: printBattleInfo(Move.SCISSORS, Move.SCISSORS); break;
-            }
+        if (playerMove == computerMove) {
             return 0;
         } else {
-
-            switch(playerMove){
-                case ROCK: printBattleInfo(Move.ROCK, Move.PAPER); break;
-                case PAPER: printBattleInfo(Move.PAPER, Move.SCISSORS); break;
-                case SCISSORS: printBattleInfo(Move.SCISSORS, Move.ROCK); break;
-            }
-            return -1;
+            return Move.beats(playerMove, computerMove) ? 1 : -1;
         }
     }
-
 }

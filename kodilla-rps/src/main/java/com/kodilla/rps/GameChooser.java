@@ -33,7 +33,5 @@ public class GameChooser {
             System.out.println("Wrong input! Try again!");
             chooseAGame();
         }
-
     }
-
 }

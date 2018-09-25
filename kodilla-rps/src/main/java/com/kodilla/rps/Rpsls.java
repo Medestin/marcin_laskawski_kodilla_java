@@ -2,10 +2,6 @@ package com.kodilla.rps;
 
 public class Rpsls extends ClassicRps {
 
-    public Rpsls() {
-
-    }
-
     @Override
     protected void message() {
         System.out.println("1 - Rock || 2 - Paper || 3 - Scissors\n4 - Lizard || 5 - Spock");
@@ -26,11 +22,12 @@ public class Rpsls extends ClassicRps {
     @Override
     protected int battle(Move playerMove) {
         Move computerMove = Move.returnAMove((int) (Math.random() * 5) + 1);
-
         printBattleInfo(playerMove, computerMove);
-        return possibleBattlesMap.returnBattleOutcome(playerMove, computerMove);
 
-
+        if(playerMove == computerMove){
+            return 0;
+        } else {
+            return Move.beats(playerMove, computerMove) ? 1 : -1;
+        }
     }
-
 }

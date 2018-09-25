@@ -8,30 +8,17 @@ public enum Move {
     SPOCK;
 
     public static Move returnAMove(int moveNumber) {
-
-        switch (moveNumber) {
-
-            case 1:
-                return Move.ROCK;
-
-            case 2:
-                return Move.PAPER;
-
-            case 3:
-                return Move.SCISSORS;
-
-            case 4:
-                return Move.LIZARD;
-
-            case 5:
-                return Move.SPOCK;
-
-            default:
-                return null;
-
-        }
-
-
+        return Move.values()[moveNumber-1];
     }
 
+    public static boolean beats(Move playerMove, Move computerMove) {
+        switch(playerMove){
+            case ROCK: return computerMove == SCISSORS || computerMove == LIZARD;
+            case PAPER: return computerMove == ROCK || computerMove == SPOCK;
+            case SCISSORS: return computerMove == PAPER || computerMove == LIZARD;
+            case LIZARD: return computerMove == PAPER || computerMove == SPOCK;
+            case SPOCK: return computerMove == SCISSORS || computerMove == ROCK;
+            default: throw new IllegalArgumentException("Wrong move!");
+        }
+    }
 }

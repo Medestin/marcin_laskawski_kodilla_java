@@ -5,21 +5,17 @@ import java.util.Scanner;
 public class ClassicRps {
 
     protected Scanner rpsScanner = new Scanner(System.in);
-    protected PossibleBattlesMap possibleBattlesMap = new PossibleBattlesMap();
 
     private int playerScore = 0;
     private int computerScore = 0;
     private int roundCounter = 0;
-
-    public ClassicRps() {
-
-    }
 
     protected void newRound() {
         message();
 
         String move = rpsScanner.next();
         move = move.toUpperCase();
+
         if (!inputValidator(move)) {
             newRound();
         }
@@ -51,13 +47,10 @@ public class ClassicRps {
                         roundCounter++;
                         break;
                 }
-
-
                 System.out.println("Round " + roundCounter + ": " + toString());
                 newRound();
                 break;
         }
-
     }
 
     protected void message() {
@@ -75,17 +68,18 @@ public class ClassicRps {
     }
 
     protected int battle(Move playerMove) {
-
         Move computerMove = Move.returnAMove((int) (Math.random() * 3) + 1);
         printBattleInfo(playerMove, computerMove);
-        return possibleBattlesMap.returnBattleOutcome(playerMove, computerMove);
 
+        if(playerMove == computerMove){
+            return 0;
+        } else {
+            return Move.beats(playerMove, computerMove) ? 1 : -1;
+        }
     }
 
     protected void printBattleInfo(Move playerMove, Move computerMove) {
-
         System.out.println(playerMove + " VS " + computerMove);
-
     }
 
     private void newGame() {
@@ -115,6 +109,7 @@ public class ClassicRps {
                 break;
             case "y":
                 System.out.println(toString());
+                System.exit(0);
                 break;
             default:
                 System.out.println("Wrong input!");
