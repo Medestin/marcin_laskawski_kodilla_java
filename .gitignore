@@ -1,10 +1,6 @@
 .gradle
 
-/build/
-kodilla-exception/build/
-kodilla-rps/build/
-kodilla-stream/build/
-kodilla-testing/build/
+**/build/
 
 !gradle/wrapper/gradle-wrapper.jar
 
