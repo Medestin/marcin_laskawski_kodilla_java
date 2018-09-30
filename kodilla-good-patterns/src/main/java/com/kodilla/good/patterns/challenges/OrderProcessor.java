@@ -13,12 +13,18 @@ public class OrderProcessor {
         this.informationService = informationService;
     }
 
-    public boolean isQuantityOrderable(OrderRequest orderRequest) {
+    public void processOrder(OrderRequest orderRequest) {
 
-        int quantityOrdered = orderRequest.quantityOrdered();
-        int quantityInStock = this.productDatabase.getQuantityOfAProduct(orderRequest.productOrdered());
+        OrderDto orderDto = processOrderRequest(orderRequest);
+        boolean isOrderable = productOrderService.productOrder(orderDto);
 
-        return (quantityInStock >= quantityOrdered);
+        if (isOrderable) {
+            Product productOrdered = orderDto.getOrderRequest().productOrdered();
+            int quantityOrdered = orderDto.getOrderRequest().quantityOrdered();
+
+            productDatabase.decreaseQuantity(productOrdered, quantityOrdered);
+            informationService.sendSomeInformationViaSomeTechnology();
+        }
     }
 
     public OrderDto processOrderRequest(OrderRequest orderRequest) {
@@ -29,18 +35,11 @@ public class OrderProcessor {
         }
     }
 
-    public void processOrder(OrderRequest orderRequest) {
+    public boolean isQuantityOrderable(OrderRequest orderRequest) {
 
-        OrderDto orderDto = processOrderRequest(orderRequest);
-        boolean isOrderable = productOrderService.orderAProduct(orderDto);
+        int quantityOrdered = orderRequest.quantityOrdered();
+        int quantityInStock = this.productDatabase.getQuantity(orderRequest.productOrdered());
 
-        if (isOrderable) {
-            Product productOrdered = orderDto.getOrderRequest().productOrdered();
-            int quantityOrdered = orderDto.getOrderRequest().quantityOrdered();
-
-            productDatabase.subtractQuantityOfAProduct(productOrdered, quantityOrdered);
-            informationService.sendSomeInformationViaSomeTechnology();
-        }
+        return (quantityInStock >= quantityOrdered);
     }
-
 }

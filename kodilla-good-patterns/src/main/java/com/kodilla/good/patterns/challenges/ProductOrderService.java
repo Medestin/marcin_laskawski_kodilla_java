@@ -2,7 +2,7 @@ package com.kodilla.good.patterns.challenges;
 
 public class ProductOrderService {
 
-    public boolean orderAProduct(OrderDto orderDto) {
+    public boolean productOrder(OrderDto orderDto) {
 
         if(orderDto.isOrderable()){
             System.out.println("Success!");

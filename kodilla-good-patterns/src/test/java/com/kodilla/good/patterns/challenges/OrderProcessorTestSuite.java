@@ -1,11 +1,17 @@
 package com.kodilla.good.patterns.challenges;
 
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 
 public class OrderProcessorTestSuite {
+
+    @BeforeClass
+    public static void beforeClass(){
+
+    }
 
     @Test
     public void testOrder(){
@@ -19,11 +25,11 @@ public class OrderProcessorTestSuite {
         when(orderRequestMock.productOrdered()).thenReturn(productMock);
         when(orderRequestMock.quantityOrdered()).thenReturn(10);
 
-        when(productDatabaseMock.getQuantityOfAProduct(productMock)).thenReturn(100);
+        when(productDatabaseMock.getQuantity(productMock)).thenReturn(100);
 
 
         orderProcessor.processOrder(orderRequestMock);
-        verify(productDatabaseMock, times(1)).subtractQuantityOfAProduct(productMock, 10);
+        verify(productDatabaseMock, times(1)).decreaseQuantity(productMock, 10);
     }
 
     @Test
@@ -38,11 +44,11 @@ public class OrderProcessorTestSuite {
         when(orderRequestMock.productOrdered()).thenReturn(productMock);
         when(orderRequestMock.quantityOrdered()).thenReturn(10);
 
-        when(productDatabaseMock.getQuantityOfAProduct(productMock)).thenReturn(9);
+        when(productDatabaseMock.getQuantity(productMock)).thenReturn(9);
 
         OrderDto testOrderDto = orderProcessor.processOrderRequest(orderRequestMock);
 
-        boolean testOrderingAProduct = productOrderService.orderAProduct(testOrderDto);
+        boolean testOrderingAProduct = productOrderService.productOrder(testOrderDto);
         Assert.assertFalse(testOrderingAProduct);
 
     }
