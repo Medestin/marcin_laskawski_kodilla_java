@@ -8,33 +8,45 @@ import static org.mockito.Mockito.*;
 
 public class OrderProcessorTestSuite {
 
-    private ProductOrderService productOrderService = new ProductOrderService();
-    private InformationService informationServiceMock = mock(InformationService.class);
-    private ProductDatabase productDatabaseMock = mock(ProductDatabase.class);
-    private OrderRequest orderRequestMock = mock(OrderRequest.class);
-    private Product productMock = mock(Product.class);
+    private ProductOrderService productOrderService;
+    private InformationService informationServiceMock;
+    private ProductDatabase productDatabaseMock;
+    private OrderRequest orderRequestMock;
+    private Product productMock;
 
-    private OrderProcessor orderProcessor = new OrderProcessor(productDatabaseMock,
-                                                                productOrderService ,informationServiceMock);
+    private OrderProcessor orderProcessor;
 
     @Before
-    public void before(){
-        when(orderRequestMock.productOrdered()).thenReturn(productMock);
-        when(orderRequestMock.quantityOrdered()).thenReturn(10);
-        when(productDatabaseMock.getQuantity(productMock)).thenReturn(100);
+    public void before() {
+        productOrderService = new ProductOrderService();
+        informationServiceMock = mock(InformationService.class);
+        productDatabaseMock = mock(ProductDatabase.class);
+        orderRequestMock = mock(OrderRequest.class);
+        productMock = mock(Product.class);
+
+        orderProcessor = new OrderProcessor(productDatabaseMock,
+                productOrderService, informationServiceMock);
     }
 
     @Test
-    public void testOrder(){
+    public void testOrder() {
+        when(orderRequestMock.productOrdered()).thenReturn(productMock);
+        when(orderRequestMock.quantityOrdered()).thenReturn(10);
+        when(productDatabaseMock.getQuantity(productMock)).thenReturn(100);
+
         orderProcessor.processOrder(orderRequestMock);
         verify(productDatabaseMock, times(1)).decreaseQuantity(productMock, 10);
     }
 
     @Test
-    public void testOrderAProduct(){
+    public void testOrderAProduct() {
+        when(orderRequestMock.productOrdered()).thenReturn(productMock);
+        when(orderRequestMock.quantityOrdered()).thenReturn(10);
+        when(productDatabaseMock.getQuantity(productMock)).thenReturn(9);
+
         OrderDto testOrderDto = orderProcessor.processOrderRequest(orderRequestMock);
 
         boolean testOrderingAProduct = productOrderService.productOrder(testOrderDto);
-        Assert.assertTrue(testOrderingAProduct);
+        Assert.assertFalse(testOrderingAProduct);
     }
 }
