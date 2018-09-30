@@ -14,19 +14,19 @@ public class OrderProcessor {
         int orderedQuantity = order.getQuantity();
         Producer producer = order.getProducer();
 
-        if(isOrderable(orderedProduct, orderedQuantity)){
+        if(canOrder(orderedProduct, orderedQuantity)){
             producer.process(orderedProduct, orderedQuantity);
-            informationService.sendOrderInformation();
+            informationService.sendOrderInformation(order);
             productDatabase.decraseQuantity(orderedProduct, orderedQuantity);
             return true;
         } else {
-            informationService.failedOrderInformation();
+            informationService.failedOrderInformation(order, productDatabase);
             return false;
         }
 
     }
 
-    private boolean isOrderable(Product orderedProduct, int orderedQuantity){
+    private boolean canOrder(Product orderedProduct, int orderedQuantity){
         int stockQuantity = productDatabase.getQuantity(orderedProduct);
 
         boolean isAvailable = productDatabase.isAvailable(orderedProduct);

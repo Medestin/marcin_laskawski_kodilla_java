@@ -35,7 +35,7 @@ public class Food2DoorTestSuite {
 
         assertTrue(testProcessOrder);
         verify(producerMock, times(1)).process(productMock, 10);
-        verify(informationServiceMock, times(1)).sendOrderInformation();
+        verify(informationServiceMock, times(1)).sendOrderInformation(testOrder);
         verify(productDatabaseMock, times(1)).decraseQuantity(productMock, 10);
     }
 
@@ -50,7 +50,7 @@ public class Food2DoorTestSuite {
         boolean testProcessOrder = testOrderProcessor.processOrder(testOrder);
 
         assertFalse(testProcessOrder);
-        verify(informationServiceMock, times(1)).failedOrderInformation();
+        verify(informationServiceMock, times(1)).failedOrderInformation(testOrder, productDatabaseMock);
     }
 
     @Test
@@ -64,6 +64,6 @@ public class Food2DoorTestSuite {
         boolean testProcessOrder = testOrderProcessor.processOrder(testOrder);
 
         assertFalse(testProcessOrder);
-        verify(informationServiceMock, times(1)).failedOrderInformation();
+        verify(informationServiceMock, times(1)).failedOrderInformation(testOrder, productDatabaseMock);
     }
 }
