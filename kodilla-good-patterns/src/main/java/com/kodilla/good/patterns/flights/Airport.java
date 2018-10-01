@@ -2,7 +2,7 @@ package com.kodilla.good.patterns.flights;
 
 import java.util.Objects;
 
-public class Airport {
+public final class Airport {
     private String name;
 
     public Airport(String name) {

@@ -2,9 +2,9 @@ package com.kodilla.good.patterns.flights;
 
 import java.util.Objects;
 
-public class Connection {
-    private Airport departure;
-    private Airport arrival;
+public final class Connection {
+    private final Airport departure;
+    private final Airport arrival;
 
     public Connection(Airport departure, Airport arrival) {
         this.departure = departure;

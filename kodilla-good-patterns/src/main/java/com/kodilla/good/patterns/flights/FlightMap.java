@@ -1,11 +1,11 @@
 package com.kodilla.good.patterns.flights;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-public class FlightMap {
+public final class FlightMap {
     private static final Set<Connection> connections = new HashSet<>();
 
     public static void addFlight(Airport departure, Airport arrival) {
@@ -17,43 +17,18 @@ public class FlightMap {
     }
 
     public static List<Airport> getDestinations(Airport airport) {
-        List<Airport> destinations = new ArrayList<>();
-        connections.stream()
+        return getConnections().stream()
                 .filter(n -> n.getDeparture().equals(airport))
-                .forEach(n -> destinations.add(n.getArrival()));
-
-        return destinations;
+                .map(Connection::getArrival)
+                .collect(Collectors.toList());
     }
 
     public static List<Airport> getArrivals(Airport airport) {
-        List<Airport> arrivals = new ArrayList<>();
-        connections.stream()
+        return getConnections().stream()
                 .filter(n -> n.getArrival().equals(airport))
-                .forEach(n -> arrivals.add(n.getDeparture()));
-
-        return arrivals;
+                .map(Connection::getDeparture)
+                .collect(Collectors.toList());
     }
 
-    public static boolean findFlight(Airport departure, Airport arrival) {
-        if (connections.contains(new Connection(departure, arrival))) {
-            return true;
-        } else {
-            List<Airport> connectingPoints = findDeepConnection(departure, arrival);
-            if (!connectingPoints.isEmpty()) {
-                System.out.println("Flight possible with connecting point(s): ");
-                System.out.println(connectingPoints);
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
 
-    private static List<Airport> findDeepConnection(Airport departure, Airport arrival) {
-        List<Airport> possibleDepartures = new ArrayList<>(getDestinations(departure));
-        List<Airport> possibleArrivals = new ArrayList<>(getArrivals(arrival));
-
-        possibleDepartures.retainAll(possibleArrivals);
-        return possibleDepartures;
-    }
 }
