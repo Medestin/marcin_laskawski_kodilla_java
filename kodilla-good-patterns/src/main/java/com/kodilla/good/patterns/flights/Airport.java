@@ -3,7 +3,7 @@ package com.kodilla.good.patterns.flights;
 import java.util.Objects;
 
 public final class Airport {
-    private String name;
+    private final String name;
 
     public Airport(String name) {
         this.name = name.toUpperCase();
