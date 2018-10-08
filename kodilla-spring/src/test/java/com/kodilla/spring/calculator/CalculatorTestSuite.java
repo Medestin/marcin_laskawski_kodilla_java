@@ -17,7 +17,7 @@ public class CalculatorTestSuite {
     @BeforeClass
     public static void initializeCalculator() {
         ApplicationContext context = new AnnotationConfigApplicationContext("com.kodilla.spring");
-        calculator = (Calculator) context.getBean("calculator");
+        calculator = context.getBean(Calculator.class);
     }
 
     @Test

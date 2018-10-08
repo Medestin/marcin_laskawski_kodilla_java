@@ -1,11 +1,6 @@
 package com.kodilla.spring.calculator;
 
-import org.springframework.stereotype.Component;
+public interface Display {
 
-@Component
-public final class Display {
-
-    public void displayValue(double value){
-        System.out.println("The result is " + value + ".");
-    }
+    void displayValue(double value);
 }
