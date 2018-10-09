@@ -1,11 +1,8 @@
 package com.kodilla.spring.portfolio;
 
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public final class TaskList {
     private final List<String> tasks;
 
@@ -25,8 +22,9 @@ public final class TaskList {
         return tasks.contains(task);
     }
 
-    public void printTasks(){
-        System.out.println(tasks);
+    @Override
+    public String toString(){
+        return tasks.toString();
     }
 
     public List<String> getTasks(){

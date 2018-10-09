@@ -3,17 +3,20 @@ package com.kodilla.spring.portfolio;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Component
 public class Board {
+    private final static Logger logger = Logger.getLogger(Logger.class.getName());
     private final TaskList tasksToDo;
     private final TaskList tasksInProgress;
     private final TaskList tasksDone;
 
-    public Board(TaskList toDo, TaskList inProgress, TaskList done){
-        this.tasksToDo = toDo;
-        this.tasksInProgress = inProgress;
-        this.tasksDone = done;
+    public Board(){
+        this.tasksToDo = new TaskList();
+        this.tasksInProgress = new TaskList();
+        this.tasksDone = new TaskList();
     }
 
     public void addTaskToDo(String task){
@@ -25,7 +28,7 @@ public class Board {
             tasksToDo.removeTask(task);
             tasksInProgress.addTask(task);
         } else {
-            System.out.println("Invalid task.");
+            logger.log(Level.INFO, "Invalid task.");
         }
     }
 
@@ -38,17 +41,14 @@ public class Board {
             tasksInProgress.removeTask(task);
             tasksDone.addTask(task);
         } else {
-            System.out.println("Invalid task.");
+            logger.log(Level.INFO, "Invalid task.");
         }
     }
 
-    public void printAllTasks(){
-        System.out.println("Tasks to do: ");
-        tasksToDo.printTasks();
-        System.out.println("Tasks in progress: ");
-        tasksInProgress.printTasks();
-        System.out.println("Tasks done: ");
-        tasksDone.printTasks();
+    public String toString(){
+        return  "Tasks to do: " + tasksToDo.toString() +
+                "\nTasks in progress: " + tasksInProgress.toString() +
+                "\nTasks done: " + tasksDone.toString();
     }
 
     public List<String> getTasksToDo() {
