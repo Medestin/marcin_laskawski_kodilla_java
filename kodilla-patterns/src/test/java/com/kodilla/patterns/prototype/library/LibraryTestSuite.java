@@ -41,10 +41,6 @@ public class LibraryTestSuite {
 
         library.addBook(new Book("Winnetou", "Karl Friedrich May", LocalDate.of(1893, 6, 15)));
 
-        System.out.println(library.getBooks());
-        System.out.println(shallowLibrary.getBooks());
-        System.out.println(deepLibrary.getBooks());
-
         Assert.assertEquals("Chronicles of Ancient DarknessCopy", deepLibrary.getName());
         Assert.assertEquals(library.getBooks().size(), shallowLibrary.getBooks().size());
         Assert.assertEquals(library.getBooks().size(), deepLibrary.getBooks().size() + 1);
