@@ -56,7 +56,7 @@ public final class Pizza {
         return "Pizza{" +
                 "bottom='" + bottom + '\'' +
                 ", sauce='" + sauce + '\'' +
-                ", ingredients=" + ingredients +
+                ", ingredient=" + ingredients +
                 '}';
     }
 }

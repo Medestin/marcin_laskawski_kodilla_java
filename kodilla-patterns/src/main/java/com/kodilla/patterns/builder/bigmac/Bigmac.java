@@ -11,47 +11,6 @@ public class Bigmac {
     private final Sauce sauce;
     private final List<Ingredients> ingredients;
 
-    public static class BigmacBuilder{
-        private Bun bun;
-        private int burgers;
-        private Sauce sauce;
-        private List<Ingredients> ingredients = new ArrayList<>();
-
-        public BigmacBuilder bun(Bun bun){
-            this.bun = bun;
-            return this;
-        }
-
-        public BigmacBuilder burgers(int burgers){
-            if(burgers > 3){
-                Logger.getLogger(Logger.class.getName()).log(Level.WARNING, "Too much burgers, setting to 3");
-                this.burgers = 3;
-                return this;
-            } else if(burgers < 1){
-                Logger.getLogger(Logger.class.getName()).log(Level.WARNING, "Can't go vegan, setting to 1");
-                this.burgers = 1;
-                return this;
-            } else {
-                this.burgers = burgers;
-                return this;
-            }
-        }
-
-        public BigmacBuilder sauce(Sauce sauce){
-            this.sauce = sauce;
-            return this;
-        }
-
-        public BigmacBuilder ingredients(Ingredients ingredient){
-            this.ingredients.add(ingredient);
-            return this;
-        }
-
-        public Bigmac build(){
-            return new Bigmac(bun, burgers, sauce, ingredients);
-        }
-    }
-
     private Bigmac(Bun bun, int burgers, Sauce sauce, List<Ingredients> ingredients){
         this.bun = bun;
         this.sauce = sauce;
@@ -73,7 +32,56 @@ public class Bigmac {
                 "bun=" + bun +
                 ", burgers=" + burgers +
                 ", sauce=" + sauce +
-                ", ingredients=" + ingredients +
+                ", ingredient=" + ingredients +
                 '}';
+    }
+
+    public static class BigmacBuilder{
+        private Bun bun;
+        private int burgers;
+        private Sauce sauce;
+        private List<Ingredients> ingredients = new ArrayList<>();
+
+        public BigmacBuilder bun(Bun bun){
+            this.bun = bun;
+            return this;
+        }
+
+        public BigmacBuilder burgers(int burgers){
+           if(validateBurgers(burgers)){
+              this.burgers = burgers;
+              return this;
+           } else {
+               throw new IllegalArgumentException("Invalid number of burgers - can't go vegan, " +
+                       "also we care about your health, so no more than three.");
+           }
+        }
+
+        public BigmacBuilder sauce(Sauce sauce){
+            this.sauce = sauce;
+            return this;
+        }
+
+        public BigmacBuilder ingredients(List<Ingredients> ingredients){
+            this.ingredients.addAll(ingredients);
+            return this;
+        }
+
+        public BigmacBuilder ingredient(Ingredients ingredient){
+            this.ingredients.add(ingredient);
+            return this;
+        }
+
+        public Bigmac build(){
+            return new Bigmac(bun, burgers, sauce, ingredients);
+        }
+
+        private boolean validateBurgers(int burgers){
+            if(burgers > 0 && burgers < 4){
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }
