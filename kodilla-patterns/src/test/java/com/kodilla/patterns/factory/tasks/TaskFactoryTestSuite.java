@@ -13,7 +13,7 @@ public class TaskFactoryTestSuite {
     }
     @Test
     public void testFactoryDriving(){
-        Task driveTask = taskFactory.makeTask(Tasks.DRIVING_TASK);
+        Task driveTask = taskFactory.makeTask(TaskType.DRIVING_TASK);
 
         driveTask.executeTask();
 
@@ -23,7 +23,7 @@ public class TaskFactoryTestSuite {
 
     @Test
     public void testFactoryPainting(){
-        Task paintTask = taskFactory.makeTask(Tasks.PAINTING_TASK);
+        Task paintTask = taskFactory.makeTask(TaskType.PAINTING_TASK);
 
         paintTask.executeTask();
 
@@ -33,7 +33,7 @@ public class TaskFactoryTestSuite {
 
     @Test
     public void testFactoryShopping(){
-        Task shopTask = taskFactory.makeTask(Tasks.SHOPPING_TASK);
+        Task shopTask = taskFactory.makeTask(TaskType.SHOPPING_TASK);
 
         Assert.assertEquals("Buy", shopTask.getTaskName());
         Assert.assertFalse(shopTask.isTaskDone());

@@ -1,10 +1,14 @@
 package com.kodilla.patterns.factory.tasks;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public final class ShoppingTask implements Task {
+    private static final Logger logger = Logger.getLogger(Logger.class.getName());
     private final String taskName;
     private final String whatToBuy;
     private final double quantity;
-    private boolean isDone = false;
+    private boolean done;
 
     public ShoppingTask(String taskName, String whatToBuy, double quantity) {
         this.taskName = taskName;
@@ -19,16 +23,16 @@ public final class ShoppingTask implements Task {
 
     @Override
     public void executeTask() {
-        if (!isDone) {
-            isDone = true;
-            Logger.getInstance().logInfo(taskName + " executed.");
+        if (!done) {
+            done = true;
+            logger.log(Level.INFO, taskName + " executed.");
         } else {
-            Logger.getInstance().logError(taskName + " alreadyDone!");
+            logger.warning(taskName + " alreadyDone!");
         }
     }
 
     @Override
     public boolean isTaskDone() {
-        return isDone;
+        return done;
     }
 }

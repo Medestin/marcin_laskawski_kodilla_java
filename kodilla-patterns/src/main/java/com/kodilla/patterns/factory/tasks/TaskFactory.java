@@ -2,8 +2,8 @@ package com.kodilla.patterns.factory.tasks;
 
 public class TaskFactory {
 
-    public final Task makeTask(Tasks task){
-        switch (task){
+    public final Task makeTask(TaskType taskType){
+        switch (taskType){
             case DRIVING_TASK:
                 return new DrivingTask("Drive", "somewhere", "anything just go away");
             case PAINTING_TASK:
@@ -11,7 +11,7 @@ public class TaskFactory {
             case SHOPPING_TASK:
                 return new ShoppingTask("Buy", "smokes", 2.0);
             default:
-                return null;
+                throw new IllegalArgumentException("Unknown TaskType");
         }
     }
 }
