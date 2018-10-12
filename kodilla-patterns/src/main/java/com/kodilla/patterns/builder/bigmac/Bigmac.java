@@ -2,8 +2,6 @@ package com.kodilla.patterns.builder.bigmac;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Bigmac {
     private final Bun bun;
@@ -48,7 +46,7 @@ public class Bigmac {
         }
 
         public BigmacBuilder burgers(int burgers){
-           if(validateBurgers(burgers)){
+           if(checkNumberOfBurgers(burgers)){
               this.burgers = burgers;
               return this;
            } else {
@@ -76,7 +74,7 @@ public class Bigmac {
             return new Bigmac(bun, burgers, sauce, ingredients);
         }
 
-        private boolean validateBurgers(int burgers){
+        private boolean checkNumberOfBurgers(int burgers){
             if(burgers > 0 && burgers < 4){
                 return true;
             } else {
