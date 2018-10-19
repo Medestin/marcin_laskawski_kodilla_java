@@ -47,21 +47,25 @@ public class DbManagerTestSuite {
                 " FROM USERS U, POSTS P" +
                 " WHERE P.USER_ID = U.ID" +
                 " GROUP BY U.ID HAVING COUNT(*) > 1" +
-                " ORDER BY U.ID;";
+                " ORDER BY U.ID";
 
         Statement statement = dbManager.getConnection().createStatement();
         ResultSet rs = statement.executeQuery(sqlGetActiveUsers);
 
+        String record1 = "John Smith, 2 posts total.";
+        String record2 = "Zachary Lee, 2 posts total.";
+
         int postsCounter = 0;
         while(rs.next()){
-            StringBuilder singleRecord = new StringBuilder();
             int postsNumber = rs.getInt("POSTS_COUNT");
-            singleRecord.append(rs.getString("FIRSTNAME")).append(" ");
-            singleRecord.append(rs.getString("LASTNAME")).append(", ");
-            singleRecord.append(postsNumber).append(" posts total.");
 
-            System.out.println(singleRecord.toString());
+            String singleRecord = rs.getString("FIRSTNAME") + " " +
+                    rs.getString("LASTNAME") + ", " +
+                    postsNumber + " posts total.";
+
+            System.out.println(singleRecord);
             postsCounter += postsNumber;
+            Assert.assertTrue(singleRecord.equals(record1) || singleRecord.equals(record2));
         }
         rs.close();
         statement.close();
