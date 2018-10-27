@@ -6,7 +6,12 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "PRODUCTS")
 public final class Product {
+    @Id
+    @GeneratedValue
+    @NotNull
+    @Column(name = "ID", unique = true)
     private int id;
+    @Column(name = "NAME")
     private String name;
 
     public Product(){
@@ -17,15 +22,10 @@ public final class Product {
         this.name = name;
     }
 
-    @Id
-    @GeneratedValue
-    @NotNull
-    @Column(name = "ID", unique = true)
     public int getId() {
         return id;
     }
 
-    @Column(name = "NAME")
     public String getName() {
         return name;
     }

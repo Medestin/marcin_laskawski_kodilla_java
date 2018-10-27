@@ -8,36 +8,37 @@ import java.util.List;
 @Entity
 @Table(name = "INVOICES")
 public final class Invoice {
-    private int id;
-    private String number;
-    private List<Item> items = new ArrayList<>();
-
-    public Invoice() {
-    }
-
-    public Invoice(String number) {
-        this.number = number;
-    }
-
     @Id
     @NotNull
     @GeneratedValue
     @Column(name = "ID", unique = true)
-    public int getId() {
-        return id;
-    }
-
+    private int id;
     @Column(name = "NUMBER")
-    public String getNumber() {
-        return number;
-    }
-
+    private String number;
     @OneToMany(
             targetEntity = Item.class,
             mappedBy = "invoice",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
+    private List<Item> items = new ArrayList<>();
+
+    public Invoice() {
+
+    }
+
+    public Invoice(String number) {
+        this.number = number;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
     public List<Item> getItems() {
         return items;
     }
