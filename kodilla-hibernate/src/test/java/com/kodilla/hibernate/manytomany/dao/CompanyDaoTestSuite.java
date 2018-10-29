@@ -2,6 +2,7 @@ package com.kodilla.hibernate.manytomany.dao;
 
 import com.kodilla.hibernate.manytomany.Company;
 import com.kodilla.hibernate.manytomany.Employee;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +19,11 @@ public class CompanyDaoTestSuite {
     EmployeeDao employeeDao;
     @Autowired
     CompanyDao companyDao;
+
+    @After
+    public void cleanUp(){
+        companyDao.findAll().forEach(n -> companyDao.delete(n));
+    }
 
     @Test
     public void testSaveManyToMany(){
@@ -54,15 +60,6 @@ public class CompanyDaoTestSuite {
         Assert.assertNotEquals(0, softwareMachineId);
         Assert.assertNotEquals(0, dataMaestersId);
         Assert.assertNotEquals(0, greyMatterId);
-
-        //CleanUp
-        try {
-            companyDao.deleteById(softwareMachineId);
-            companyDao.deleteById(dataMaestersId);
-            companyDao.deleteById(greyMatterId);
-        } catch (Exception e) {
-            //do nothing
-        }
     }
 
     @Test
@@ -88,24 +85,13 @@ public class CompanyDaoTestSuite {
         lindaKovalsky.getCompanies().add(greyMatter);
 
         companyDao.save(softwareMachine);
-        int softwareMachineId = softwareMachine.getId();
         companyDao.save(dataMaesters);
-        int dataMaestersId = dataMaesters.getId();
         companyDao.save(greyMatter);
-        int greyMatterId = greyMatter.getId();
 
         List<Employee> retrieveByLastnameList = employeeDao.retrieveByLastname("Smith");
         List<Company> retrieveByThreeCharsList = companyDao.retrieveByFirstThreeCharacters("Dat");
 
         Assert.assertEquals(1, retrieveByLastnameList.size());
         Assert.assertEquals(1, retrieveByThreeCharsList.size());
-
-        try {
-            companyDao.deleteById(softwareMachineId);
-            companyDao.deleteById(dataMaestersId);
-            companyDao.deleteById(greyMatterId);
-        } catch (Exception e) {
-            //do nothing
-        }
     }
 }
