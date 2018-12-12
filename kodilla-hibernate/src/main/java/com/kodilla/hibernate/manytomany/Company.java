@@ -10,6 +10,10 @@ import java.util.List;
         query = "SELECT * FROM COMPANIES WHERE LEFT(COMPANY_NAME, 3) = :CHARACTERS",
         resultClass = Company.class
 )
+@NamedQuery(
+        name = "Company.retrieveCompaniesContainingCharacters",
+        query = "FROM Company WHERE name LIKE CONCAT('%', :CHARACTERS, '%') "
+)
 @Entity
 @Table(name = "COMPANIES")
 public class Company {
