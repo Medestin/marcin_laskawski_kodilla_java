@@ -20,11 +20,19 @@ public class SearchFacade {
         this.employeeDao = employeeDao;
     }
 
-    public List<Company> findCompaniesContaining(String characters){
-        return companyDao.retrieveCompaniesContainingCharacters(characters);
+    public List<Company> findCompaniesContaining(String characters) {
+        if (characters != null) {
+            return companyDao.retrieveCompaniesContainingCharacters(characters);
+        } else {
+            throw new NullPointerException("Null input!");
+        }
     }
 
     public List<Employee> findEmployeesContaining(String characters){
-        return employeeDao.retrieveEmployessContainingCharacters(characters);
+        if(characters != null){
+            return employeeDao.retrieveEmployessContainingCharacters(characters);
+        } else {
+            throw new NullPointerException("Null input!");
+        }
     }
 }
