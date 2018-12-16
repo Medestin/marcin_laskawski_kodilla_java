@@ -27,12 +27,12 @@ public class OrderFacadeWatcher {
             result = proceedingJoinPoint.proceed();
             Long end = System.currentTimeMillis();
 
-            LOGGER.info("Processing order took: " + (end - begin) + "ms.");
+            LOGGER.info("Success! Processing order took: " + (end - begin) + "ms.");
         }catch (Throwable t){
             LOGGER.error(t.getMessage());
             Long end = System.currentTimeMillis();
 
-            LOGGER.info("Processing order took: " + (end - begin) + "ms.");
+            LOGGER.info("Processing failed. Operation took: " + (end - begin) + "ms.");
             throw t;
         }
         return result;
