@@ -7,4 +7,5 @@ include 'kodilla-good-patterns'
 include 'kodilla-spring-intro'
 include 'kodilla-patterns'
 include 'kodilla-jdbc'
+include 'kodilla-testing2'
 
