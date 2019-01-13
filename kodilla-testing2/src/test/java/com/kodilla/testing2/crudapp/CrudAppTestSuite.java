@@ -26,16 +26,12 @@ public class CrudAppTestSuite {
         generator = new Random();
     }
 
-    @After
-    public void cleanUpAfterTest(){
-        webDriver.close();
-    }
-
     @Test
     public void shouldCreateTrelloCard() throws InterruptedException {
         String taskName = createCrudeAppTestCard();
         sendTestTaskToTrello(taskName);
         assertTrue(checkTaskExistsInTrello(taskName));
+        deleteTaskFromCrud(taskName);
     }
 
     private String createCrudeAppTestCard() throws InterruptedException {
@@ -78,6 +74,7 @@ public class CrudAppTestSuite {
                     buttonCreateCard.click();
                 });
         Thread.sleep(5000);
+        webDriver.close();
     }
 
     private boolean checkTaskExistsInTrello(String taskName) throws InterruptedException {
@@ -107,5 +104,25 @@ public class CrudAppTestSuite {
         trelloDriver.close();
 
         return result;
+    }
+
+    private void deleteTaskFromCrud(String taskName) throws InterruptedException {
+        webDriver = WebDriverConfig.getDriver(WebDriverConfig.CHROME);
+        webDriver.get(BASE_URL);
+
+        while(!webDriver.findElement(By.xpath("//select[1]")).isDisplayed());
+
+        webDriver.findElements(By.xpath("//form[@class=\"datatable__row\"]")).stream()
+                .filter(anyForm ->
+                        anyForm.findElement(By.xpath(".//p[@class=\"datatable__field-value\"]"))
+                                .getText().equals(taskName))
+                .forEach(theForm -> {
+                    theForm.findElements(By.xpath(".//button[@class=\"datatable__button\"]")).stream()
+                            .filter(button -> button.getText().toLowerCase().contains("delete"))
+                            .forEach(WebElement::click);
+                });
+
+        Thread.sleep(5000);
+        webDriver.close();
     }
 }
